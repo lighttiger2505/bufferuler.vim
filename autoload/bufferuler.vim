@@ -85,13 +85,8 @@ function! s:BufferulerFocused() abort
 endfunction
 
 function! s:BufferulerContents() abort
-    " Collect all tab buffer window
-    let bufnrlist = []
-    for i in range(tabpagenr('$'))
-        call extend(bufnrlist, tabpagebuflist(i + 1))
-    endfor
-
     " Make deisplay buffer list
+    let bufnrlist = filter(range(1, bufnr('$')), 'bufexists(v:val)')
     let disp_buflist = []
     for i in bufnrlist
         let disp_buf = i . ' ' . bufname(i)
